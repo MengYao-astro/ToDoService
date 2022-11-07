@@ -1,4 +1,6 @@
+import { isNgTemplate } from '@angular/compiler';
 import { Injectable } from '@angular/core';
+import { catchError, Observable } from 'rxjs';
 import { TodoApiService } from '../api/todo.api.service';
 import { ToDoItem } from '../model/ToDoItem';
 import { TodoStoreService } from './todo-store.service';
@@ -20,7 +22,6 @@ export class TodoService {
   }
 
   public findById(id: number): ToDoItem {
-    return this.todoStore.findById(id);
   }
 
   public create(todoItem: ToDoItem): void {
@@ -40,7 +41,10 @@ export class TodoService {
   }
 
   public delete(id: number): void {
-    this.todoStore.delete(id);
+    this.todoApi.delete(id).subscribe({
+      next: response => { },
+      error: error => { this.errorMessage = error.errorMessage}
+    });
   }
 
   public selectTodoItem(id: number): void {

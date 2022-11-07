@@ -13,10 +13,11 @@ export class TodoitemDetailComponent implements OnInit {
   todoItem: ToDoItem = new ToDoItem(0, '', '', false);
 
   constructor(public todoService: TodoService,
-    private acitvateRoute: ActivatedRoute) { }
+              private acitvatedRouter: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const id = this.acitvateRoute.snapshot.paramMap.get('id');
+    const id = this.acitvatedRouter.snapshot.paramMap.get('id');
     this.todoService.findById(Number(id));
   }
 }
+
