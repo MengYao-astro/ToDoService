@@ -15,9 +15,13 @@ export class TodoitemDetailComponent implements OnInit {
   constructor(public todoService: TodoService,
               private acitvatedRouter: ActivatedRoute) { }
 
+  // copied from mengyu
   ngOnInit(): void {
     const id = this.acitvatedRouter.snapshot.paramMap.get('id');
-    this.todoService.findById(Number(id));
+    console.log(id);
+    this.todoService.findById(Number(id)).subscribe(
+      res => { this.todoItem = res }
+    );
   }
 }
 

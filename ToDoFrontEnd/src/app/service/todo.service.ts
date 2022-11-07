@@ -21,7 +21,15 @@ export class TodoService {
     return this.todoStore.getAll();
   }
 
-  public findById(id: number): ToDoItem {
+  // copied from mengyu
+  public findById(id: number): Observable<any> {
+    return this.todoApi.getById(id).pipe(
+      // tap(res => console.log(res)),
+      catchError(err => {
+        this.errorMessage = err.errorMessage
+        return err
+      })
+    )
   }
 
   public create(todoItem: ToDoItem): void {
