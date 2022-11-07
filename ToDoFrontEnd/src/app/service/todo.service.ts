@@ -8,10 +8,11 @@ import { TodoStoreService } from './todo-store.service';
 })
 export class TodoService {
 
+  errorMessage!: string;
   private _selectedTodoItem: ToDoItem = {} as ToDoItem;
   private _updatingTodoItem: ToDoItem = {} as ToDoItem;
   constructor(private todoStore: TodoStoreService,
-    private todoApi: TodoApiService) {
+              private todoApi: TodoApiService) {
   }
 
   public get todoItems(): Array<ToDoItem> {
@@ -23,7 +24,10 @@ export class TodoService {
   }
 
   public create(todoItem: ToDoItem): void {
-    this.todoApi.create(todoItem);
+    this.todoApi.create(todoItem).subscribe({
+      next: response => { },
+      error: error => { this.errorMessage = error.errorMessage}
+    });
   }
 
   public update(updateTodoItem: ToDoItem): void {
