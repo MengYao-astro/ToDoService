@@ -51,4 +51,27 @@ describe('TodoService', () => {
     // then
     expect(service.errorMessage).toEqual('create failed')
   });
+
+  it('should find todoItem by id via mockHttp get', () => {
+    // given 
+    const id = 1;
+    httpClientSpy.get.and.returnValue(of({}))
+    // when
+    service.findById(id);
+    // then
+    expect(httpClientSpy.get).toHaveBeenCalledWith(
+      'https://localhost:5001/todos/1')
+  })
+
+  it('should response error when findById failed', () => {
+    // given 
+    const id = 1
+    httpClientSpy.get.and.returnValue(
+      throwError(() => ({ errorMessage: 'not found' }))
+    )
+    // when
+    service.findById(id)
+    // then
+    expect(service.errorMessage).toEqual('create failed')
+  });
 })
