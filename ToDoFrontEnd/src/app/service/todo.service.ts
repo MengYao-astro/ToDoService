@@ -16,12 +16,21 @@ export class TodoService {
     return this.todoStore.getAll();
   }
 
+  public findById(id: number): ToDoItem {
+    return this.todoStore.findById(id);
+  }
+
   public create(todoItem: ToDoItem): void {
     this.todoStore.create(todoItem);
   }
 
   public update(updateTodoItem: ToDoItem): void {
     this.todoStore.update(updateTodoItem);
+  }
+
+  public updateById(updateTodoItem: ToDoItem): void {
+    
+    return this.todoStore.update(updateTodoItem);
   }
 
   public delete(id: number): void {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToDoItem } from '../../model/ToDoItem';
 import { TodoService } from '../../service/todo.service';
 
@@ -13,18 +14,21 @@ export class ListTodoitemComponent implements OnInit {
     return this.todoService.todoItems;
   }
 
-  constructor(private todoService: TodoService) {
+  constructor(private todoService: TodoService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
   }
 
   public detail(id: number): void {
-    this.todoService.selectTodoItem(id);
+    //this.todoService.selectTodoItem(id);
+    this.router.navigate(['todos', id]);
   }
 
   public update(id: number): void {
     this.todoService.selectTodoItemForUpdate(id);
+    this.router.navigate(['todos/modify', id]);
   }
 
   public doDelete(id: number): void {
