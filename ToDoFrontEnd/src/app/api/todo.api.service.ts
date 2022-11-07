@@ -8,9 +8,10 @@ import { ToDoItem } from '../model/ToDoItem';
 })
 export class TodoApiService {
 
+  BaseUrl = 'https://localhost:5001/'
   constructor(private http: HttpClient) { }
 
   create(todoItem: ToDoItem): Observable<void> {
-    return this.http.post<void>('https://635fc244ca0fe3c21aa3d012.mockapi.io/api/todos', todoItem)
+    return this.http.post<void>( `${this.BaseUrl}todos`, todoItem)
   }
 }
